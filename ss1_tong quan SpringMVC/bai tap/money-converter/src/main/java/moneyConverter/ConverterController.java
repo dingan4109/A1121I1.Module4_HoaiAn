@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ConverterController {
 
-    @GetMapping("/")
+    @GetMapping("/form")
     public String redirectIndexPage() {
         return "home";
     }
