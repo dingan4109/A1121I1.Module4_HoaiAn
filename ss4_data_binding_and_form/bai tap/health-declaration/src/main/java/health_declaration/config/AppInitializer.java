@@ -1,4 +1,4 @@
-package timezone.config;
+package health_declaration.config;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

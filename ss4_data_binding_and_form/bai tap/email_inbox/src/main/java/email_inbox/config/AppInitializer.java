@@ -1,4 +1,4 @@
-package timezone.config;
+package email_inbox.config;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
