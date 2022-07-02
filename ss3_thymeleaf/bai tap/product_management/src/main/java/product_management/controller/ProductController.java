@@ -81,11 +81,16 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    public ModelAndView search(@RequestParam String id) {
-        Product product = productService.findById(id);
-        ModelAndView modelAndView = new ModelAndView("viewDetail","product",product);
+    public String search(@RequestParam String name,RedirectAttributes redirectAttributes,Model model) {
+        Product product = productService.findByName(name);
+        if(product!=null) {
+            model.addAttribute("product",product);
+             return "viewDetail";
+        }else {
+            redirectAttributes.addFlashAttribute("mess","No product found!");
+           return "redirect:/product/list";
+        }
 
-        return  modelAndView;
     }
 
 }

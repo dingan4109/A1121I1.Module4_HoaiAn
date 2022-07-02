@@ -28,6 +28,16 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    public Product findByName(String name) {
+        for(Product product : products) {
+            if(product.getName().equals(name)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public void update(String id, Product product) {
         for(int i = 0;i<products.size();i++) {
             if(products.get(i).getId().equals(id)) {
