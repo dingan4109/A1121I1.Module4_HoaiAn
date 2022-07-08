@@ -5,8 +5,8 @@ import blog_app.entity.Blog;
 import java.util.List;
 
 public interface BlogService {
-    List<Blog> seeAllBlogs();
+    List<Blog> findAll();
     Blog findById(int id);
     void save(Blog blog);
-    void delete(int id);
+    void deleteById(int id);
 }

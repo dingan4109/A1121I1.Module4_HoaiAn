@@ -12,13 +12,13 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     BlogRepo blogRepo;
     @Override
-    public List<Blog> seeAllBlogs() {
-        return blogRepo.seeAllBlogs();
+    public List<Blog> findAll() {
+        return blogRepo.findAll();
     }
 
     @Override
     public Blog findById(int id) {
-        return blogRepo.findById(id);
+        return blogRepo.findById(id).orElse(null);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public void delete(int id) {
-        blogRepo.delete(id);
+    public void deleteById(int id) {
+        blogRepo.deleteById(id);
     }
 }

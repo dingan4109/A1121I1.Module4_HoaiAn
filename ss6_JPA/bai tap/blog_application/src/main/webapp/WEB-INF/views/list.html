@@ -40,7 +40,7 @@
 
 </nav>
 <main class="row mt-2">
-    <div class="col" th:each="blog : ${blogList}">
+    <div class="col-md-3" th:each="blog : ${blogList}">
         <div class="container" pt-4>
             <img th:src="${blog.image}" class="img-fluid">
         </div>

@@ -19,7 +19,7 @@ public class BlogController {
     BlogService blogService;
     @GetMapping("/blogs")
     public ModelAndView blogList() {
-        List<Blog> blogList = blogService.seeAllBlogs();
+        List<Blog> blogList = blogService.findAll();
         ModelAndView modelAndView = new ModelAndView("list");
         modelAndView.addObject("page","list");
         modelAndView.addObject("blogList",blogList);
@@ -71,7 +71,7 @@ public class BlogController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id) {
-        blogService.delete(id);
+        blogService.deleteById(id);
         return "redirect:/blogs";
     }
 }
