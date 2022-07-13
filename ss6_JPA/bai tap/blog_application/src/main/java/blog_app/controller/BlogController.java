@@ -1,25 +1,41 @@
 package blog_app.controller;
 
 import blog_app.entity.Blog;
+import blog_app.entity.Category;
 import blog_app.service.BlogService;
+import blog_app.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BlogController {
     @Autowired
     BlogService blogService;
+    @Autowired
+    CategoryService categoryService;
+
+    @ModelAttribute("categories")
+    public Page<Category> categories(Pageable pageable) {
+        return categoryService.findAll(pageable);
+    }
+
+
     @GetMapping("/blogs")
-    public ModelAndView blogList() {
-        List<Blog> blogList = blogService.findAll();
+    public ModelAndView blogList(@PageableDefault(value = 4) Pageable pageable, @RequestParam("searchByTitle") Optional<String> searchByTitle) {
+        Page<Blog> blogList;
+        if(!searchByTitle.isPresent()) {
+            blogList = blogService.findAll(pageable);
+        }else {
+            blogList = blogService.search(searchByTitle.get(),pageable);
+        }
+
         ModelAndView modelAndView = new ModelAndView("list");
         modelAndView.addObject("page","list");
         modelAndView.addObject("blogList",blogList);
@@ -73,5 +89,15 @@ public class BlogController {
     public String delete(@PathVariable("id") int id) {
         blogService.deleteById(id);
         return "redirect:/blogs";
+    }
+
+    @GetMapping("/category/{id}")
+    public ModelAndView listByCategory(@PathVariable("id") int id,@PageableDefault(value = 4) Pageable pageable) {
+       Page<Blog> blogList = blogService.findAllByCategory(id,pageable);
+        ModelAndView modelAndView = new ModelAndView("list");
+        modelAndView.addObject("page","list");
+        modelAndView.addObject("blogList",blogList);
+
+        return modelAndView;
     }
 }

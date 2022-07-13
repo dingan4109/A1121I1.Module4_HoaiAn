@@ -10,15 +10,32 @@ public class Blog {
     private int id;
     private String image;
     private String title;
+    @Column(length = 300)
+    private String description;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public Blog() {
     }
 
-    public Blog(String image,String title, String content) {
+    public Blog(String image,String title, String description, String content) {
         this.image = image;
         this.title = title;
+        this.description = description;
         this.content = content;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId() {
@@ -51,5 +68,13 @@ public class Blog {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

@@ -15,12 +15,29 @@
                 <td><input type="text" th:field="*{title}" id="title" th:value="*{title}"></td>
             </tr>
             <tr>
+                <th><lable>Category</lable></th>
+                <td>
+                    <select th:field="*{category}">
+                        <option value="">Select</option>
+                        <option
+                                th:each="category : ${categories}"
+                                th:value="${category.categoryId}"
+                                th:text="${category.name}"
+                                th:selected="(*{category}) and (${category.categoryId} == *{category.categoryId})"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <th><lable for="img">Image</lable></th>
                 <td><input type="text" th:field="*{image}" id="img" th:value="*{image}"></td>
             </tr>
             <tr>
                 <th><lable for="content">Create space</lable></th>
-                <td><textarea type="text" th:field="*{content}" id="content" rows="10" th:value="*{content}"/></td>
+                <td>
+                    <textarea type="text" th:field="*{description}" rows="2" th:value="*{description}"/>
+                    <br>
+                    <textarea type="text" th:field="*{content}" id="content" rows="10" th:value="*{content}"/>
+                </td>
             </tr>
             <tr>
                 <th></th>
@@ -29,5 +46,6 @@
         </table>
     </form>
 </div>
+<div th:replace="list::footer"></div>
 </body>
 </html>
