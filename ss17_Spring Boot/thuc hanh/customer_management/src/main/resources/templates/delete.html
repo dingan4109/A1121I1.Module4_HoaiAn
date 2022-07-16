@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete form</title>
+</head>
+<body>
+<h1>Confirm to delete customer?</h1>
+<form th:action="@{/delete}" th:method="post" th:object="${customer}">
+    <input type="text" hidden th:field="*{id}">
+    <label>First name</label>
+    <span th:text="${customer.firstName}"></span>
+    <br>
+    <label>Last name</label>
+    <span th:text="${customer.lastName}"></span>
+    <br>
+    <button type="submit">Delete</button>
+    <button type="button"><a th:href="@{/customers}">Back to customer list</a></button>
+</form>
+</body>
+</html>

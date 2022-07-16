@@ -9,4 +9,6 @@ public interface PhotoService {
     Photo findById(int id);
     void save(Photo photo);
     void deleteById(int id);
+
+    Photo findByPhotoLinkContaining(String src);
 }

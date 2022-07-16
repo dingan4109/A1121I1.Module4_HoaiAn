@@ -1,6 +1,7 @@
 package photo_of_the_day.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -9,20 +10,16 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String photoLink;
-    private int rate;
-    private String author;
 
     @Column(columnDefinition = "TEXT")
-    private String feedback;
+    @OneToMany(targetEntity = Feedback.class)
+    private List<Feedback> feedback;
 
     public Photo() {
     }
 
-    public Photo(String photoLink, int rate, String author, String feedback) {
+    public Photo(String photoLink) {
         this.photoLink = photoLink;
-        this.rate = rate;
-        this.author = author;
-        this.feedback = feedback;
     }
 
     public String getPhotoLink() {
@@ -41,27 +38,12 @@ public class Photo {
         this.id = id;
     }
 
-    public int getRate() {
-        return rate;
-    }
 
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getFeedback() {
+    public List<Feedback> getFeedback() {
         return feedback;
     }
 
-    public void setFeedback(String feedback) {
+    public void setFeedback(List<Feedback> feedback) {
         this.feedback = feedback;
     }
 }

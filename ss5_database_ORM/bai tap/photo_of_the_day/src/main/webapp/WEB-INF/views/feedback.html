@@ -5,38 +5,33 @@
     <title>Title</title>
 </head>
 <body class="container">
-<form th:action="@{/save}" th:method="post" th:object="${photo}">
-    <table>
-        <tr>
-            <th><input type="text" hidden th:field="*{photoLink}" th:value="${photo.photoLink}"></th>
-            <td><img th:src="${photo.photoLink}" style="width: 50%;height: 50%"></td>
-        </tr>
-        <tr>
-            <th>Rate</th>
-            <td>
-                <select>
-                    <option>Select</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th>Author</th>
-            <td><input type="text" th:field="*{author}"></td>
-        </tr>
-        <tr>
-            <th>Feedback</th>
-            <td><textarea type="text" th:field="*{feedback}" rows="5"/></td>
-        </tr>
-        <tr>
-            <th></th>
-            <td><input type="submit" value="Submit"></td>
-        </tr>
-    </table>
-</form>
+    <form th:action="@{/save}" th:method="post" th:object="${feedback}">
+        <table>
+            <input type="text" hidden th:field="*{photo.id}">
+            <br>
+            <tr>
+
+                <td><img th:src="${feedback.photo.photoLink}" style="width: 30%;height: 30%"></td>
+            </tr>
+            <tr>
+                <th>Rate</th>
+                <td>
+                    <input type="text" th:field="*{rate}">
+                </td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td><input type="text" th:field="*{author}"></td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td><textarea type="text" th:field="*{comment}" rows="5"/></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>

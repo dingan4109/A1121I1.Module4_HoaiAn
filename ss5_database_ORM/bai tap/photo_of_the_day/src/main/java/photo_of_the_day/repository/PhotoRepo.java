@@ -6,5 +6,6 @@ import photo_of_the_day.entity.Photo;
 
 @Repository
 public interface PhotoRepo extends JpaRepository<Photo,Integer> {
+    Photo findByPhotoLinkContaining(String src);
 
 }

@@ -24,11 +24,25 @@ public class PhotoServiceImpl implements PhotoService{
 
     @Override
     public void save(Photo photo) {
-        photoRepo.save(photo);
+        List<Photo> photos = photoRepo.findAll();
+        if(photos.size()==0) {
+            photoRepo.save(photo);
+        }else {
+            if(photoRepo.findByPhotoLinkContaining(photo.getPhotoLink()) == null) {
+                photoRepo.save(photo);
+            }
+        }
+
     }
 
     @Override
     public void deleteById(int id) {
         photoRepo.deleteById(id);
     }
+
+    @Override
+    public Photo findByPhotoLinkContaining(String src) {
+        return photoRepo.findByPhotoLinkContaining(src);
+    }
+
 }
