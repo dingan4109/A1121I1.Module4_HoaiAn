@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="shop::headLibs">
+    <meta charset="UTF-8">
+    <title>Shopping</title>
+</head>
+<body>
+<p><a th:href="@{/shop}">Shop</a></p>
+<form th:action="@{/}" th:method="post" th:object="${cart}">
+    <h1>Your cart (<span th:text="${cart.countItemQuantity()}"/>)</h1>
+    <th:block th:each="p : ${cart.products}">
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <img th:src="${p.getKey().image}" alt="product-image" class="img-fluid">
+                    <a th:href="@{/add/__${p.getKey().id}__(action='delete')}" class="btn btn-primary">Delete</a>
+                </div>
+                <div class="col-md-9">
+                    <p th:text="${p.getKey().name}"></p>
+                    <p th:text="${p.getKey().price}"></p>
+                    <p>
+                        <a id="decrease_button" th:href="@{/add/__${p.getKey().id}__(action='deduct')}" th:text="${'-'}"></a>
+                        <input th:value="${p.getValue()}" readonly size="2">
+                        <a id="increase_button" th:href="@{/add/__${p.getKey().id}__(action='show')}" th:text="${'+'}"></a>
+                    </p>
+                </div>
+        </div>
+    </th:block>
+    <br>
+    <hr>
+    <p>Total payment: <span th:text="${cart.countTotalPayment()}"/></p>
+</form>
+</body>
+</html>

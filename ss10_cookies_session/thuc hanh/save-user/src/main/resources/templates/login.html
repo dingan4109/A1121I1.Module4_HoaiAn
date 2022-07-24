@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie demo</title>
+</head>
+<body>
+<h1>User login</h1>
+<form th:action="@{/dologin}" th:object="${user}" th:method="post">
+    <table border="1">
+        <tr>
+            <td><lable>Email</lable></td>
+            <td><input type="text" id="email" name="email" th:value="${cookieValue.value}"></td>
+        </tr>
+        <tr>
+            <td><lable>Password</lable></td>
+            <td><input type="password" th:field="*{password}"></td>
+        </tr>
+    </table>
+    <button type="submit">Login</button>
+</form>
+<span th:text="${message}"></span>
+<span th:text="${user.email}"></span>
+</body>
+</html>

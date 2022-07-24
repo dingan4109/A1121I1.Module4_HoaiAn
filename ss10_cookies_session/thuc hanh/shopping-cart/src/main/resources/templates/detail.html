@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="shop::headLibs">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container">
+<div class="row mt-3">
+    <div class="col-md-3">
+        <div class="card">
+            <img th:src="${product.image}" alt="product" class="card-img-top">
+            <div class="card-body">
+                <h5 th:text="${product.name}"></h5>
+                <p th:text="${product.price}"></p>
+                <a th:href="@{/add/__${product.id}__(action='list')}" class="btn btn-primary">Add to cart</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <p th:text="${product.description}"></p>
+    </div>
+</div>
+</body>
+</html>
