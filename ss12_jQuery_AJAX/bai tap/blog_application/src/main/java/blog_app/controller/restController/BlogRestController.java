@@ -18,7 +18,11 @@ public class BlogRestController {
     BlogService blogService;
 
     @GetMapping
-    public ResponseEntity<Page<Blog>> findAllBlogs(@PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,value = 5) Pageable pageable) {
+    public ResponseEntity<Page<Blog>> findAllBlogs(
+            @PageableDefault(
+//                    sort = {"id"},
+//                    direction = Sort.Direction.ASC,
+                    value = 4) Pageable pageable) {
         Page<Blog> blogList = blogService.findAll(pageable);
         if(blogList == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -37,18 +41,18 @@ public class BlogRestController {
         }
     }
 
-//    @GetMapping("search")
-//    public ResponseEntity<Page<Blog>> searchByTitle(@RequestParam("title") String title, Pageable pageable) {
-//        Page<Blog> blogList = blogService.search(title,pageable);
-//        return new ResponseEntity<>(blogList,HttpStatus.OK);
-//    }
-
-
     @GetMapping("search")
-    @ResponseStatus(HttpStatus.OK)
-    public Page<Blog> search(@RequestParam("title") String title,Pageable pageable) {
-        return blogService.search(title,pageable);
+    public ResponseEntity<Page<Blog>> searchByTitle(@RequestParam("title") String title, Pageable pageable) {
+        Page<Blog> blogList = blogService.search(title,pageable);
+        return new ResponseEntity<>(blogList,HttpStatus.OK);
     }
+
+
+//    @GetMapping("search")
+//    @ResponseStatus(HttpStatus.OK)
+//    public Page<Blog> search(@RequestParam("title") String title,Pageable pageable) {
+//        return blogService.search(title,pageable);
+//    }
 
 
 }
