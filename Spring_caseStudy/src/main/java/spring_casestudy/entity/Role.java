@@ -1,22 +1,23 @@
-package model;
+package spring_casestudy.entity;
 
-public class Role {
-    private int roleId;
+import javax.persistence.*;
+
+@Entity
+@Table
+public class  Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer roleId;
     private String roleName;
 
     public Role() {
     }
 
-    public Role(int roleId, String roleName) {
-        this.roleId = roleId;
-        this.roleName = roleName;
-    }
-
-    public int getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 

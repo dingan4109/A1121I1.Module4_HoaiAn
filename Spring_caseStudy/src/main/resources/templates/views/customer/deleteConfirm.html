@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::headLibs">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container-fluid">
+<div th:replace="layout/layout::navBar"></div>
+<div class="row">
+    <div th:replace="layout/layout::sideBar"></div>
+    <div class="col-md-9">
+        <h1>Confirm to delete customer?</h1>
+        <form th:action="@{/customers/delete}" th:method="get">
+            <input type="text" hidden th:value="${customer.customerId}" name="deleteId">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td th:text="${customer.customerName}"></td>
+                </tr>
+                <tr>
+                    <th>Birthday</th>
+                    <td th:text="${customer.customerBirthday}"></td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td th:if="${customer.customerGender == 0}">Nữ</td>
+                    <td th:unless="${customer.customerGender == 0}">Nam</td>
+                </tr>
+                <tr>
+                    <th>Id card</th>
+                    <td th:text="${customer.customerIdCard}"></td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td th:text="${customer.customerPhone}"></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td th:text="${customer.customerEmail}"></td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td th:text="${customer.customerAddress}"></td>
+                </tr>
+            </table>
+            <br>
+            <button type="submit" class="btn">Delete customer</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

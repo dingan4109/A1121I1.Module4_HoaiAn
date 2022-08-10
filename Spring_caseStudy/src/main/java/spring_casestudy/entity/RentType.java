@@ -1,29 +1,31 @@
-package model;
+package spring_casestudy.entity;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table
 public class RentType {
-    private int rentTypeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer rentTypeId;
+    @Length(max = 45)
     private String rentTypeName;
-    private double rentTypeCost;
+    private Double rentTypeCost;
+
+    @OneToMany(mappedBy = "rentType")
+    private List<Service> serviceList;
 
     public RentType() {
     }
 
-    public RentType(String rentTypeName, double rentTypeCost) {
-        this.rentTypeName = rentTypeName;
-        this.rentTypeCost = rentTypeCost;
-    }
-
-    public RentType(int rentTypeId, String rentTypeName, double rentTypeCost) {
-        this.rentTypeId = rentTypeId;
-        this.rentTypeName = rentTypeName;
-        this.rentTypeCost = rentTypeCost;
-    }
-
-    public int getRentTypeId() {
+    public Integer getRentTypeId() {
         return rentTypeId;
     }
 
-    public void setRentTypeId(int rentTypeId) {
+    public void setRentTypeId(Integer rentTypeId) {
         this.rentTypeId = rentTypeId;
     }
 
@@ -35,11 +37,19 @@ public class RentType {
         this.rentTypeName = rentTypeName;
     }
 
-    public double getRentTypeCost() {
+    public Double getRentTypeCost() {
         return rentTypeCost;
     }
 
-    public void setRentTypeCost(double rentTypeCost) {
+    public void setRentTypeCost(Double rentTypeCost) {
         this.rentTypeCost = rentTypeCost;
+    }
+
+    public List<Service> getServiceList() {
+        return serviceList;
+    }
+
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
     }
 }

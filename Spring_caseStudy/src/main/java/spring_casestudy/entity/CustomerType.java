@@ -1,26 +1,30 @@
-package model;
+package spring_casestudy.entity;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table
 public class CustomerType {
-    private int customerTypeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer customerTypeId;
+    @Length(max = 45)
     private String customerTypeName;
+
+    @OneToMany(mappedBy = "customerType")
+    private List<Customer> customerList;
 
     public CustomerType() {
     }
 
-    public CustomerType(int customerTypeId, String customerTypeName) {
-        this.customerTypeId = customerTypeId;
-        this.customerTypeName = customerTypeName;
-    }
-
-    public CustomerType(String customerTypeName) {
-        this.customerTypeName = customerTypeName;
-    }
-
-    public int getCustomerTypeId() {
+    public Integer getCustomerTypeId() {
         return customerTypeId;
     }
 
-    public void setCustomerTypeId(int customerTypeId) {
+    public void setCustomerTypeId(Integer customerTypeId) {
         this.customerTypeId = customerTypeId;
     }
 
@@ -30,5 +34,13 @@ public class CustomerType {
 
     public void setCustomerTypeName(String customerTypeName) {
         this.customerTypeName = customerTypeName;
+    }
+
+    public List<Customer> getCustomerList() {
+        return customerList;
+    }
+
+    public void setCustomerList(List<Customer> customerList) {
+        this.customerList = customerList;
     }
 }

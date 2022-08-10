@@ -1,36 +1,34 @@
-package model;
+package spring_casestudy.entity;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table
 public class AttachService {
-    private int attachServiceId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer attachServiceId;
+    @Length(max = 45)
     private String attachServiceName;
-    private double attachServiceCost;
-    private int attachServiceUnit;
+    private Double attachServiceCost;
+    private Integer attachServiceUnit;
+    @Length(max = 45)
     private String attachServiceStatus;
+
+    @OneToMany(mappedBy = "attachService")
+    private List<ContractDetail> contractDetailList;
 
     public AttachService() {
     }
 
-    public AttachService(String attachServiceName, double attachServiceCost, int attachServiceUnit, String attachServiceStatus) {
-        this.attachServiceName = attachServiceName;
-        this.attachServiceCost = attachServiceCost;
-        this.attachServiceUnit = attachServiceUnit;
-        this.attachServiceStatus = attachServiceStatus;
-    }
-
-    public AttachService(int attachServiceId, String attachServiceName, double attachServiceCost,
-                         int attachServiceUnit, String attachServiceStatus) {
-        this.attachServiceId = attachServiceId;
-        this.attachServiceName = attachServiceName;
-        this.attachServiceCost = attachServiceCost;
-        this.attachServiceUnit = attachServiceUnit;
-        this.attachServiceStatus = attachServiceStatus;
-    }
-
-    public int getAttachServiceId() {
+    public Integer getAttachServiceId() {
         return attachServiceId;
     }
 
-    public void setAttachServiceId(int attachServiceId) {
+    public void setAttachServiceId(Integer attachServiceId) {
         this.attachServiceId = attachServiceId;
     }
 
@@ -46,7 +44,7 @@ public class AttachService {
         return attachServiceCost;
     }
 
-    public void setAttachServiceCost(double attachServiceCost) {
+    public void setAttachServiceCost(Double attachServiceCost) {
         this.attachServiceCost = attachServiceCost;
     }
 
@@ -54,7 +52,7 @@ public class AttachService {
         return attachServiceUnit;
     }
 
-    public void setAttachServiceUnit(int attachServiceUnit) {
+    public void setAttachServiceUnit(Integer attachServiceUnit) {
         this.attachServiceUnit = attachServiceUnit;
     }
 
@@ -64,5 +62,13 @@ public class AttachService {
 
     public void setAttachServiceStatus(String attachServiceStatus) {
         this.attachServiceStatus = attachServiceStatus;
+    }
+
+    public List<ContractDetail> getContractDetailList() {
+        return contractDetailList;
+    }
+
+    public void setContractDetailList(List<ContractDetail> contractDetailList) {
+        this.contractDetailList = contractDetailList;
     }
 }

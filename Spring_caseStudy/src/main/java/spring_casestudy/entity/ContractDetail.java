@@ -1,56 +1,56 @@
-package model;
+package spring_casestudy.entity;
 
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+
+@Entity
+@Table
 public class ContractDetail {
-    private int contractDetailId;
-    private int contractId;
-    private int attachServiceId;
-    private int quantity;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer contractDetailId;
+    @ManyToOne
+    @JoinColumn(name = "contract_id")
+    private  Contract contract;
+    @ManyToOne
+    @JoinColumn(name = "attach_service_id")
+    private AttachService attachService;
+    @Min(value = 0,message = "Positive number only")
+    private Integer quantity;
 
     public ContractDetail() {
     }
 
-    public ContractDetail(int contractId, int attachServiceId, int quantity) {
-        this.contractId = contractId;
-        this.attachServiceId = attachServiceId;
-        this.quantity = quantity;
-    }
 
-    public ContractDetail(int contractDetailId, int contractId, int attachServiceId, int quantity) {
-        this.contractDetailId = contractDetailId;
-        this.contractId = contractId;
-        this.attachServiceId = attachServiceId;
-        this.quantity = quantity;
-    }
-
-    public int getContractDetailId() {
+    public Integer getContractDetailId() {
         return contractDetailId;
     }
 
-    public void setContractDetailId(int contractDetailId) {
+    public void setContractDetailId(Integer contractDetailId) {
         this.contractDetailId = contractDetailId;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public int getContractId() {
-        return contractId;
+    public Contract getContract() {
+        return contract;
     }
 
-    public void setContractId(int contractId) {
-        this.contractId = contractId;
+    public void setContract(Contract contract) {
+        this.contract = contract;
     }
 
-    public int getAttachServiceId() {
-        return attachServiceId;
+    public AttachService getAttachService() {
+        return attachService;
     }
 
-    public void setAttachServiceId(int attachServiceId) {
-        this.attachServiceId = attachServiceId;
+    public void setAttachService(AttachService attachService) {
+        this.attachService = attachService;
     }
 }

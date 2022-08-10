@@ -1,52 +1,68 @@
-package model;
+package spring_casestudy.entity;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.List;
 
+@Entity
+@Table
 public class Customer {
-    private int customerId;
-    private int customerTypeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer customerId;
+    @ManyToOne
+    @JoinColumn(name = "customer_type_id")
+    private CustomerType customerType;
+    @Length(max = 45)
     private String customerName;
-    private Date customerBirthday;
-    private int customerGender;
+    private String customerBirthday;
+    private Integer customerGender;
+    @Length(max = 45)
+    @Pattern(regexp = "^[0-9]{9}$", message = "Invalid Id card number")
     private String customerIdCard;
+    @Length(max = 45)
+    @Pattern(regexp = "^(090|091|\\(84\\)\\+90|\\(84\\)\\+91)[0-9]{7}$",message = "Invalid phone number")
     private String customerPhone;
+    @Length(max = 45)
+    @Pattern(regexp = "^[\\w\\d]+(\\.[\\w\\d]+)?@[\\w\\d]+\\.[\\w\\d]+(\\.[\\w\\d]+)?$", message = "Invalid email address")
     private String customerEmail;
+    @Length(max = 45)
     private String customerAddress;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Contract> contractList;
+
+    private String attach_service_name;
+    private Integer contract_detail_id;
+
+    public String getAttach_service_name() {
+        return attach_service_name;
+    }
+
+    public void setAttach_service_name(String attach_service_name) {
+        this.attach_service_name = attach_service_name;
+    }
+
+    public Integer getContract_detail_id() {
+        return contract_detail_id;
+    }
+
+    public void setContract_detail_id(Integer contract_detail_id) {
+        this.contract_detail_id = contract_detail_id;
+    }
 
     public Customer() {
     }
 
-    public Customer(int customerTypeId, String customerName, Date customerBirthday, int customerGender,
-                    String customerIdCard,
-                    String customerPhone, String customerEmail, String customerAddress) {
-        this.customerTypeId = customerTypeId;
-        this.customerName = customerName;
-        this.customerBirthday = customerBirthday;
-        this.customerGender = customerGender;
-        this.customerIdCard = customerIdCard;
-        this.customerPhone = customerPhone;
-        this.customerEmail = customerEmail;
-        this.customerAddress = customerAddress;
-    }
-
-    public Customer(int customerId, int customerTypeId, String customerName, Date customerBirthday, int customerGender,
-                    String customerIdCard, String customerPhone, String customerEmail, String customerAddress) {
-        this.customerId = customerId;
-        this.customerTypeId = customerTypeId;
-        this.customerName = customerName;
-        this.customerBirthday = customerBirthday;
-        this.customerGender = customerGender;
-        this.customerIdCard = customerIdCard;
-        this.customerPhone = customerPhone;
-        this.customerEmail = customerEmail;
-        this.customerAddress = customerAddress;
-    }
-
-    public int getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
@@ -58,27 +74,35 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public Date getCustomerBirthday() {
+    public String getCustomerBirthday() {
         return customerBirthday;
     }
 
-    public int getCustomerTypeId() {
-        return customerTypeId;
+    public CustomerType getCustomerType() {
+        return customerType;
     }
 
-    public void setCustomerTypeId(int customerTypeId) {
-        this.customerTypeId = customerTypeId;
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
     }
 
-    public void setCustomerBirthday(Date customerBirthday) {
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
+    }
+
+    public void setCustomerBirthday(String customerBirthday) {
         this.customerBirthday = customerBirthday;
     }
 
-    public int getCustomerGender() {
+    public Integer getCustomerGender() {
         return customerGender;
     }
 
-    public void setCustomerGender(int customerGender) {
+    public void setCustomerGender(Integer customerGender) {
         this.customerGender = customerGender;
     }
 

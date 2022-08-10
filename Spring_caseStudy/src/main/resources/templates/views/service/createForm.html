@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::headLibs">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container-fluid">
+<div th:replace="layout/layout::navBar"></div>
+<div class="row">
+    <div th:replace="layout/layout::sideBar"></div>
+    <div class="col-md-9">
+        <h1>Create new service</h1>
+        <p>
+            <a th:href="@{/customers/list}">
+                <button class="btn btn-primary me-md-2"
+                        style="background: lightgrey">Back to customer list
+                </button>
+            </a>
+        </p>
+        <form th:action="@{/services/create}" th:method="post" th:object="${service}">
+            <div class="col-md-9">
+                <lable class="form-label" for="name">Name</lable>
+                <input type="text" class="form-control" id="name" th:field="*{serviceName}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="area">Area</lable>
+                <input type="text" class="form-control" id="area" th:field="*{serviceArea}">
+                <p th:if="${#fields.hasErrors('serviceArea')}" th:errors="*{serviceArea}"></p>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="cost">Cost</lable>
+                <input type="text" class="form-control" id="cost" th:field="*{serviceCost}">
+                <p th:if="${#fields.hasErrors('serviceCost')}" th:errors="*{serviceCost}"></p>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="maxPeople">Max people</lable>
+                <input type="text" class="form-control" id="maxPeople" th:field="*{serviceMaxPeople}">
+                <p th:if="${#fields.hasErrors('serviceMaxPeople')}" th:errors="*{serviceMaxPeople}"></p>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Rent type</lable>
+                <select th:field="*{rentType}">
+                    <option value="">Select</option>
+                    <option th:each="rentType : ${rentTypes}"
+                            th:value="${rentType.rentTypeId}"
+                            th:text="${rentType.rentTypeName}"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label">Service type</lable>
+                <select th:field="*{serviceType}">
+                    <option value="">Select</option>
+                    <option th:each="serviceType : ${serviceTypes}"
+                            th:value="${serviceType.serviceTypeId}"
+                            th:text="${serviceType.serviceTypeName}"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="standardRoom">Standard room</lable>
+                <input type="text" class="form-control" id="standardRoom" th:field="*{standardRoom}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="description">Description other convenience</lable>
+                <input type="text" class="form-control" id="description" th:field="*{descriptionOtherConvenience}">
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="poolArea">Pool area</lable>
+                <input type="text" class="form-control" id="poolArea" th:field="*{poolArea}">
+                <p th:if="${#fields.hasErrors('poolArea')}" th:errors="*{poolArea}"></p>
+            </div>
+            <div class="col-md-9">
+                <lable class="form-label" for="floors">Number of floors</lable>
+                <input type="text" class="form-control" id="floors" th:field="*{numberOfFloors}">
+                <p th:if="${#fields.hasErrors('numberOfFloors')}" th:errors="*{numberOfFloors}"></p>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Create new service</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

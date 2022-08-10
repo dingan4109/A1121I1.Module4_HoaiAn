@@ -1,53 +1,51 @@
-package model;
+package spring_casestudy.entity;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import java.util.List;
+
+@Entity
+@Table
 public class Service {
-    private int serviceId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer serviceId;
+    @Length(max = 45)
     private String serviceName;
-    private int serviceArea;
-    private double serviceCost;
-    private int serviceMaxPeople;
-    private int rentTypeId;
-    private int serviceTypeId;
+    @Min(value = 0,message = "Positive number only")
+    private Integer serviceArea;
+    @Min(value = 0,message = "Positive number only")
+    private Double serviceCost;
+    @Min(value = 0,message = "Positive number only")
+    private Integer serviceMaxPeople;
+    @ManyToOne
+    @JoinColumn(name = "rent_type_id")
+    private RentType rentType;
+    @ManyToOne
+    @JoinColumn(name = "service_type_id")
+    private ServiceType serviceType;
+    @Length(max = 45)
     private String standardRoom;
+    @Length(max = 45)
     private String descriptionOtherConvenience;
-    private double poolArea;
-    private int numberOfFloors;
+    @Min(value = 0,message = "Positive number only")
+    private Double poolArea;
+    @Min(value = 0,message = "Positive number only")
+    private Integer numberOfFloors;
+
+    @OneToMany(mappedBy = "service")
+    private List<Contract> contractList;
 
     public Service() {
     }
 
-    public Service(String serviceName, int serviceArea, double serviceCost, int serviceMaxPeople, int rentTypeId, int serviceTypeId, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOfFloors) {
-        this.serviceName = serviceName;
-        this.serviceArea = serviceArea;
-        this.serviceCost = serviceCost;
-        this.serviceMaxPeople = serviceMaxPeople;
-        this.rentTypeId = rentTypeId;
-        this.serviceTypeId = serviceTypeId;
-        this.standardRoom = standardRoom;
-        this.descriptionOtherConvenience = descriptionOtherConvenience;
-        this.poolArea = poolArea;
-        this.numberOfFloors = numberOfFloors;
-    }
-
-    public Service(int serviceId, String serviceName, int serviceArea, double serviceCost, int serviceMaxPeople, int rentTypeId, int serviceTypeId, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOfFloors) {
-        this.serviceId = serviceId;
-        this.serviceName = serviceName;
-        this.serviceArea = serviceArea;
-        this.serviceCost = serviceCost;
-        this.serviceMaxPeople = serviceMaxPeople;
-        this.rentTypeId = rentTypeId;
-        this.serviceTypeId = serviceTypeId;
-        this.standardRoom = standardRoom;
-        this.descriptionOtherConvenience = descriptionOtherConvenience;
-        this.poolArea = poolArea;
-        this.numberOfFloors = numberOfFloors;
-    }
-
-    public int getServiceId() {
+    public Integer getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(Integer serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -59,27 +57,27 @@ public class Service {
         this.serviceName = serviceName;
     }
 
-    public int getServiceArea() {
+    public Integer getServiceArea() {
         return serviceArea;
     }
 
-    public void setServiceArea(int serviceArea) {
+    public void setServiceArea(Integer serviceArea) {
         this.serviceArea = serviceArea;
     }
 
-    public double getServiceCost() {
+    public Double getServiceCost() {
         return serviceCost;
     }
 
-    public void setServiceCost(double serviceCost) {
+    public void setServiceCost(Double serviceCost) {
         this.serviceCost = serviceCost;
     }
 
-    public int getServiceMaxPeople() {
+    public Integer getServiceMaxPeople() {
         return serviceMaxPeople;
     }
 
-    public void setServiceMaxPeople(int serviceMaxPeople) {
+    public void setServiceMaxPeople(Integer serviceMaxPeople) {
         this.serviceMaxPeople = serviceMaxPeople;
     }
 
@@ -99,35 +97,43 @@ public class Service {
         this.descriptionOtherConvenience = descriptionOtherConvenience;
     }
 
-    public double getPoolArea() {
+    public Double getPoolArea() {
         return poolArea;
     }
 
-    public void setPoolArea(double poolArea) {
+    public void setPoolArea(Double poolArea) {
         this.poolArea = poolArea;
     }
 
-    public int getNumberOfFloors() {
+    public Integer getNumberOfFloors() {
         return numberOfFloors;
     }
 
-    public void setNumberOfFloors(int numberOfFloors) {
+    public void setNumberOfFloors(Integer numberOfFloors) {
         this.numberOfFloors = numberOfFloors;
     }
 
-    public int getRentTypeId() {
-        return rentTypeId;
+    public RentType getRentType() {
+        return rentType;
     }
 
-    public void setRentTypeId(int rentTypeId) {
-        this.rentTypeId = rentTypeId;
+    public void setRentType(RentType rentType) {
+        this.rentType = rentType;
     }
 
-    public int getServiceTypeId() {
-        return serviceTypeId;
+    public ServiceType getServiceType() {
+        return serviceType;
     }
 
-    public void setServiceTypeId(int serviceTypeId) {
-        this.serviceTypeId = serviceTypeId;
+    public void setServiceType(ServiceType serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
     }
 }

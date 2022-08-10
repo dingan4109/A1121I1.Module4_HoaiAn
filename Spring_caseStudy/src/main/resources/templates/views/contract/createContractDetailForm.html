@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::headLibs">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container-fluid">
+<div th:replace="layout/layout::navBar"></div>
+<div class="row">
+    <div th:replace="layout/layout::sideBar"></div>
+    <div class="col-md-9">
+        <h1>Create new contract detail</h1>
+        <p>
+            <a th:href="@{/customers/list}">
+                <button class="btn btn-primary me-md-2"
+                        style="background: lightgrey">Back to customer list
+                </button>
+            </a>
+        </p>
+        <form th:action="@{/contracts/createContractDetail}" th:method="post" th:object="${contractDetail}">
+            <div class="col-md-9">
+                <label class="form-label">Contract</label>
+                <select th:field="*{contract}">
+                    <option value="">Select</option>
+                    <option th:each="contract : ${contracts}"
+                            th:value="${contract.contractId}"
+                            th:text="${contract.contractStartDate}"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <label class="form-label">Attach Service</label>
+                <select th:field="*{attachService}">
+                    <option value="">Select</option>
+                    <option th:each="attachService : ${attachServices}"
+                            th:value="${attachService.attachServiceId}"
+                            th:text="${attachService.attachServiceName}"></option>
+                </select>
+            </div>
+            <div class="col-6">
+                <label for="qty" class="form-label">Quantity</label>
+                <input type="text" class="form-control" id="qty" th:field="*{quantity}">
+                <p th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p>
+            </div>
+            <br><br>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Create contract detail</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

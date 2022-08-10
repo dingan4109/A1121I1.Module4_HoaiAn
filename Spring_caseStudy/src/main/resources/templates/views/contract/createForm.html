@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::headLibs">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="container-fluid">
+<div th:replace="layout/layout::navBar"></div>
+<div class="row">
+    <div th:replace="layout/layout::sideBar"></div>
+    <div class="col-md-9">
+        <h1>Create new contract</h1>
+        <p>
+            <a th:href="@{/customers/list}">
+                <button class="btn btn-primary me-md-2"
+                        style="background: lightgrey">Back to customer list
+                </button>
+            </a>
+        </p>
+        <form th:action="@{/contracts/create}" th:method="post" th:object="${contract}">
+            <div class="col-md-6">
+                <label for="start" class="form-label">Start date</label>
+                <input type="date" class="form-control" id="start" th:field="*{contractStartDate}" required>
+                <p th:if="${#fields.hasErrors('contractStartDate')}" th:errors="*{contractStartDate}"></p>
+            </div>
+            <div class="col-md-6">
+                <label for="end" class="form-label">End date</label>
+                <input type="date" class="form-control" id="end" th:field="*{contractEndDate}" required>
+                <p th:if="${#fields.hasErrors('contractEndDate')}" th:errors="*{contractEndDate}"></p>
+            </div>
+            <div class="col-6">
+                <label for="deposit" class="form-label">Deposit</label>
+                <input type="text" class="form-control" id="deposit" th:field="*{contractDeposit}" required>
+                <p th:if="${#fields.hasErrors('contractDeposit')}" th:errors="*{contractDeposit}"></p>
+            </div>
+            <div class="col-6">
+                <label for="total" class="form-label">Total Money</label>
+                <input type="text" class="form-control" id="total" th:field="*{contractTotalMoney}" required>
+                <p th:if="${#fields.hasErrors('contractTotalMoney')}" th:errors="*{contractTotalMoney}"></p>
+            </div>
+            <div class="col-md-9">
+                <label class="form-label">Employee</label>
+                <select th:field="*{employee}">
+                    <option value="">Select</option>
+                    <option th:each="employee : ${employees}"
+                            th:value="${employee.employeeId}"
+                            th:text="${employee.employeeName}"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <label class="form-label">Customer</label>
+                <select th:field="*{customer}">
+                    <option value="">Select</option>
+                    <option th:each="customer : ${customers}"
+                            th:value="${customer.customerId}"
+                            th:text="${customer.customerName}"></option>
+                </select>
+            </div>
+            <div class="col-md-9">
+                <label class="form-label">Service</label>
+                <select th:field="*{service}">
+                    <option value="">Select</option>
+                    <option th:each="service : ${services}"
+                            th:value="${service.serviceId}"
+                            th:text="${service.serviceName}"></option>
+                </select>
+            </div>
+            <br><br>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Create contract</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

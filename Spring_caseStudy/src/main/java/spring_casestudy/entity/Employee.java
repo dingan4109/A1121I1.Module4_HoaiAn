@@ -1,61 +1,59 @@
-package model;
+package spring_casestudy.entity;
 
-import java.util.Date;
+import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import java.util.List;
+
+@Entity
+@Table
 public class Employee {
-    private int employeeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer employeeId;
+    @Length(max = 45)
     private String employeeName;
-    private Date employeeBirthday;
+    private String employeeBirthday;
+    @Length(max = 45)
+    @Pattern(regexp = "^[0-9]{9}$", message = "Invalid Id card number")
     private String employeeIdCard;
-    private double employeeSalary;
+    @Min(value = 0,message = "Positive number only")
+    private Double employeeSalary;
+    @Length(max = 45)
+    @Pattern(regexp = "^(090|091|\\(84\\)\\+90|\\(84\\)\\+91)[0-9]{7}$",message = "Invalid phone number")
     private String employeePhone;
+    @Length(max = 45)
+    @Pattern(regexp = "^[\\w\\d]+(\\.[\\w\\d]+)?@[\\w\\d]+\\.[\\w\\d]+(\\.[\\w\\d]+)?$", message = "Invalid email address")
     private String employeeEmail;
+    @Length(max = 45)
     private String employeeAddress;
-    private int positionId;
-    private int educationDegreeId;
-    private int divisionId;
-    private String username;
+
+    @ManyToOne
+    @JoinColumn(name = "position_id")
+    private Position position;
+    @ManyToOne
+    @JoinColumn(name = "educationDegree_id")
+    private EducationDegree educationDegree;
+    @ManyToOne
+    @JoinColumn(name = "division_id")
+    private Division division;
+    @OneToOne
+    @JoinColumn(name = "username")
+    private User user;
+
+    @OneToMany(mappedBy = "employee")
+    private List<Contract> contractList;
 
     public Employee() {
     }
 
-    public Employee(String employeeName, Date employeeBirthday, String employeeIdCard, double employeeSalary,
-                    String employeePhone, String employeeEmail, String employeeAddress, int positionId,
-                    int educationDegreeId, int divisionId, String username) {
-        this.employeeName = employeeName;
-        this.employeeBirthday = employeeBirthday;
-        this.employeeIdCard = employeeIdCard;
-        this.employeeSalary = employeeSalary;
-        this.employeePhone = employeePhone;
-        this.employeeEmail = employeeEmail;
-        this.employeeAddress = employeeAddress;
-        this.positionId = positionId;
-        this.educationDegreeId = educationDegreeId;
-        this.divisionId = divisionId;
-        this.username = username;
-    }
-
-    public Employee(int employeeId, String employeeName, Date employeeBirthday, String employeeIdCard,
-                    double employeeSalary, String employeePhone, String employeeEmail, String employeeAddress, int positionId, int educationDegreeId, int divisionId, String username) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.employeeBirthday = employeeBirthday;
-        this.employeeIdCard = employeeIdCard;
-        this.employeeSalary = employeeSalary;
-        this.employeePhone = employeePhone;
-        this.employeeEmail = employeeEmail;
-        this.employeeAddress = employeeAddress;
-        this.positionId = positionId;
-        this.educationDegreeId = educationDegreeId;
-        this.divisionId = divisionId;
-        this.username = username;
-    }
-
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -67,11 +65,11 @@ public class Employee {
         this.employeeName = employeeName;
     }
 
-    public Date getEmployeeBirthday() {
+    public String getEmployeeBirthday() {
         return employeeBirthday;
     }
 
-    public void setEmployeeBirthday(Date employeeBirthday) {
+    public void setEmployeeBirthday(String employeeBirthday) {
         this.employeeBirthday = employeeBirthday;
     }
 
@@ -83,11 +81,11 @@ public class Employee {
         this.employeeIdCard = employeeIdCard;
     }
 
-    public double getEmployeeSalary() {
+    public Double getEmployeeSalary() {
         return employeeSalary;
     }
 
-    public void setEmployeeSalary(double employeeSalary) {
+    public void setEmployeeSalary(Double employeeSalary) {
         this.employeeSalary = employeeSalary;
     }
 
@@ -115,35 +113,43 @@ public class Employee {
         this.employeeAddress = employeeAddress;
     }
 
-    public int getPositionId() {
-        return positionId;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setPositionId(int positionId) {
-        this.positionId = positionId;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
-    public int getEducationDegreeId() {
-        return educationDegreeId;
+    public EducationDegree getEducationDegree() {
+        return educationDegree;
     }
 
-    public void setEducationDegreeId(int educationDegreeId) {
-        this.educationDegreeId = educationDegreeId;
+    public void setEducationDegree(EducationDegree educationDegree) {
+        this.educationDegree = educationDegree;
     }
 
-    public int getDivisionId() {
-        return divisionId;
+    public Division getDivision() {
+        return division;
     }
 
-    public void setDivisionId(int divisionId) {
-        this.divisionId = divisionId;
+    public void setDivision(Division division) {
+        this.division = division;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
     }
 }

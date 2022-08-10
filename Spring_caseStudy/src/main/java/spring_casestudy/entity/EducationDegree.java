@@ -1,26 +1,30 @@
-package model;
+package spring_casestudy.entity;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table
 public class EducationDegree {
-    private int educationDegreeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer educationDegreeId;
+    @Length(max = 45)
     private String educationDegreeName;
+
+    @OneToMany(mappedBy = "educationDegree")
+    private List<Employee> employeeList;
 
     public EducationDegree() {
     }
 
-    public EducationDegree(String educationDegreeName) {
-        this.educationDegreeName = educationDegreeName;
-    }
-
-    public EducationDegree(int educationDegreeId, String educationDegreeName) {
-        this.educationDegreeId = educationDegreeId;
-        this.educationDegreeName = educationDegreeName;
-    }
-
-    public int getEducationDegreeId() {
+    public Integer getEducationDegreeId() {
         return educationDegreeId;
     }
 
-    public void setEducationDegreeId(int educationDegreeId) {
+    public void setEducationDegreeId(Integer educationDegreeId) {
         this.educationDegreeId = educationDegreeId;
     }
 
@@ -30,5 +34,13 @@ public class EducationDegree {
 
     public void setEducationDegreeName(String educationDegreeName) {
         this.educationDegreeName = educationDegreeName;
+    }
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 }
